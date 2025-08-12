@@ -39,7 +39,7 @@ We will create a role `Ec2_Lambda_Snapshot` with permissions to create snapshots
                 "ec2:DescribeVolumes",
                 "ec2:DescribeInstances"
             ],
-            "Resource": "arn:aws:ec2:ap-southeast-1:707728974508:instance/i-0bd1ca1753e7d383f"
+            "Resource": "arn:aws:ec2:ap-southeast-1:73472897498072:instance/i-0hfiwbd1ca1753e7d383f"
         }
     ]
 }
@@ -54,7 +54,7 @@ We will create a role `Ec2_Lambda_Snapshot` with permissions to create snapshots
 ## **Task 3: Create Lambda Function (Snapshot)**
 
 ### **Lambda Function – Take Snapshot**
-1. Create a new Lambda function named **`DB1_Server_Snapshot`**.
+1. Create a new Lambda function named **`APP_Server_Snapshot`**.
 2. Runtime: **Python 3.11**.
 3. Permissions: Assign the **`Ec2_Lambda_Snapshot`** role.
 4. Add the following code:
@@ -64,7 +64,7 @@ import boto3
 from datetime import datetime
 
 region = 'ap-southeast-1'
-instances = ['i-0e19d1db3f8e3782c']
+instances = ['i-0e19d1dhfksab3f8e3782c']
 ec2_resource = boto3.resource('ec2', region_name=region)
 
 def lambda_handler(event, context):
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 > - Change `region` and `instances` values as required.
 > - Multiple instances can be listed as:
 >   ```python
->   instances = ['i-03ed8bb3a2e2ffb47', 'i-061e8e8245a3f1e15']
+>   instances = ['i-03ed8bdkhfb3a2e2ffb47', 'i-061e8e824djidi5a3f1e15']
 >   ```
 
 5. Deploy and test the function to verify snapshots are created.
@@ -102,11 +102,11 @@ We will trigger the Lambda function using **EventBridge** rules.
 ---
 
 ### **Rule Creation**
-1. Open the Lambda function **`DB1_Server_Snapshot`**.
+1. Open the Lambda function **`APP_Server_Snapshot`**.
 2. Click **Add Trigger** → **EventBridge**.
 3. Create a new rule:
-   - **Name:** `DB1_Server_Snapshot`
-   - **Description:** `DB1_Server_Snapshot at 10 PM MYT`
+   - **Name:** `APP_Server_Snapshot`
+   - **Description:** `APP_Server_Snapshot at 10 PM MYT`
    - **Rule type:** Schedule expression
    - **Cron expression (UTC):**
      ```text
